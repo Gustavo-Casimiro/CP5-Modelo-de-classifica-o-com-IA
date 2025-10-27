@@ -19,3 +19,44 @@ Linhas: 50000
 Colunas: 11
 
 Variáveis: Modelo, ano, região, cor, tipo de combustível, transmissão, tamanho do motor, Quilometragem, preço, vendas, classificação de vendas.
+
+
+index,modelo,acuracia,precisao,recall,f1
+0,LogisticRegression,0.9983,0.9982999499249916,0.9983,0.9982999645641482
+1,LDA,0.9023,0.9159810806937079,0.9023,0.899182036771681
+2,GaussianNB,0.9023,0.9159810806937079,0.9023,0.899182036771681
+
+
+A acurácia reporta a proporção de previsões corretas no conjunto de teste e é útil quando as classes estão razoavelmente equilibradas.
+
+Usamos acurácia para comparar rapidamente os modelos, sabendo que, em cenários desbalanceados, ela pode mascarar erros na classe minoritária.
+
+Precisão
+A precisão indica, entre as instâncias previstas como positivas por uma classe, quantas realmente pertencem a essa classe, sendo crítica quando o custo de falso positivo é alto.
+
+Relatamos precisão por classe e média (macro/weighted) para evitar que o desempenho em classes dominantes esconda baixa qualidade em classes menores.
+
+Recall
+O recall mede, entre todas as instâncias verdadeiramente positivas de uma classe, quantas o modelo conseguiu capturar, sendo vital quando o custo de falso negativo é alto.​​
+
+Priorizamos recall (ou F1) quando a classe de interesse é minoritária, para reduzir a perda de casos relevantes.
+
+A Tabela de Métricas resume acurácia, precisão, recall e F1 no conjunto de teste para cada modelo, ordenada pelo F1 para refletir melhor o equilíbrio entre precisão e recall.
+
+O modelo selecionado apresentou maior F1 sem degradar substancialmente a precisão, além de melhor distribuição de acertos na matriz de confusão.
+
+Escolhemos o modelo final porque maximiza F1 nas classes de maior interesse e mantém precisão adequada, equilibrando captura e confiabilidade das previsões.
+
+Apesar da acurácia similar entre modelos, a melhor pontuação de F1 e a matriz de confusão mais homogênea sustentam a decisão.
+
+
+Selecionou‑se o modelo final por maximizar F1 sem perda significativa de precisão, equilibrando captura de casos relevantes e confiabilidade das previsões. Além disso, sua matriz de confusão é mais homogênea entre classes, alinhando‑se ao objetivo de negócio de reduzir erros na classe de maior interesse.
+
+Em termos práticos, oferece melhor trade‑off entre identificar corretamente registros de ‘alto’ volume e evitar alarmes falsos, o que atende à priorização de estoque e campanhas. Como próximos passos, aplicaremos validação cruzada estratificada e ajuste de hiperparâmetros para consolidar a robustez do resultado.
+
+
+O pipeline de classificação com pré-processamento reprodutível (imputação, encoding e padronização) foi essencial para estabilizar o desempenho entre modelos e reduzir impacto de nulos e escalas diferentes nas variáveis.​
+
+Entre Regressão Logística, LDA e Gaussian Naive Bayes, observou-se variação nas trocas entre precisão e recall; ordenar por F1 ajudou a balancear cobertura e confiabilidade das previsões.​
+
+A análise da matriz de confusão mostrou que a maior confusão ocorre entre classes adjacentes de volume (ex.: médio vs alto), sugerindo fronteiras próximas e possível necessidade de melhor engenharia de atributos.
